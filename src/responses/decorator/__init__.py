@@ -11,8 +11,7 @@ def clean_response(func):
 
             rsp = await func(*args, **kwargs)
         except Exception as exp:
-            if 'logger' in kwargs:
-                kwargs['logger_func'].error(exp.args[0], kwargs['request'].url._url)
+            kwargs['logger_func'].error(exp.args[0], kwargs['request'].url._url)
             rsp = exception(exp.args[0])
         finally:
             kwargs['logger_func'].info('End of request.', kwargs['request'].url._url)
